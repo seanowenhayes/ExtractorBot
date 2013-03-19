@@ -10,7 +10,7 @@ bot.addExtraction(new Extractor('title', 'header h1.fn', ''));
 bot.addExtraction(new Extractor('description', 'article.recipe_description'));
 bot.addExtraction(new Extractor('method', 'article.method'));
 bot.addExtraction(new Extractor('method', 'article.method'));
-bot.addExtraction(new Extractor('ingredients', 'article.method'));
+bot.addExtraction(new Extractor('ingredients', 'p.ingredient'));
 
 bot.setExtractionPath('/recipes/:category/:recipe');
 bot.start();

@@ -15,7 +15,7 @@ Extraction.prototype.setValue = function (value) {
     } else if (value.length > 1) {
         self.value = [];
         value.each(function (i, el) {
-            value.push($(el).text());
+            self.value.push($(el).text());
         });
     }
 };
