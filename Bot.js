@@ -1,4 +1,4 @@
-var Spider = require('/home/sean/Development/javascript/spider'),
+var Spider = require('spider'),
     s = Spider(),
     url = require('url');
 
