@@ -1,18 +1,30 @@
 var Spider = require('spider'),
     s = Spider(),
-    url = require('url');
+    url = require('url'),
+    Extraction = require('./extract/Extraction.js'),
+    ImageExtraction = require('./extract/ImageExtractor.js');
 
 s.log('debug');//TODO remove after debugging!!!
 
-function Bot (startUrl, persistence) {
+function Bot (options) {
     var self = this;
-    this.startUrl = url.parse(startUrl);
+    options = options || {};
+    this.startUrl = url.parse(options.startUrl);
     this.extractions = [];
-    var Persistence = require(persistence || './persistence/CouchPersistence');
-    this.persistence = new Persistence('http://localhost:5984', 'jamieoliver_com', function (err) {
-        err && console.log(err);
-        !err && console.log('new persistence made ok...');
-    });
+    if (options.extractions) {
+        options.extractions.forEach(function (extraction) {
+            var Extractable = extraction.type == 'image' ? ImageExtraction : Extraction;
+            self.addExtraction(new Extractable(extraction.name, extraction.cssSelector, extraction.defaultValue));
+        })
+    }
+
+    if (options.crawlLevels) {
+        options.crawlLevels.forEach(function (crawlLevel) {
+            self.addCrawlLevel(crawlLevel.path, crawlLevel.cssExpression);
+        });
+    }
+
+    options.extractionPath && self.setExtractionPath(options.extractionPath);
 
 }
 

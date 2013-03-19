@@ -1,16 +1,48 @@
 var Bot = require('./Bot.js'),
-    ImageExtractor = require('./extract/ImageExtractor.js'),
-    Extractor = require('./extract/Extraction.js'),
-    bot = new Bot('http://www.jamieoliver.com/recipes');
+    Persistence = require('./persistence/CouchPersistence'),
+    persistence = new Persistence('http://localhost:5984', 'jamieoliver_com', function (err) {
+    err && console.log(err);
+    !err && console.log('new persistence made ok...');
+});
 
-bot.addCrawlLevel('/recipes', '.subnav_main_ingredient a');
-bot.addCrawlLevel('/recipes/:category', 'div.copy > h3 > a');
-bot.addExtraction(new ImageExtractor('image', '.recipe_image_main img', ''));
-bot.addExtraction(new Extractor('title', 'header h1.fn', ''));
-bot.addExtraction(new Extractor('description', 'article.recipe_description'));
-bot.addExtraction(new Extractor('method', 'article.method'));
-bot.addExtraction(new Extractor('method', 'article.method'));
-bot.addExtraction(new Extractor('ingredients', 'p.ingredient'));
+var options = {
+    startUrl: 'http://www.jamieoliver.com/recipes',
+    crawlLevels: [{
+        path: '/recipes',
+        cssExpression: '.subnav_main_ingredient a'
+    }, {
+        path: '/recipes/:category',
+        cssExpression: 'div.copy > h3 > a'
+    }],
+    extractions: [{
+        type: 'image',
+        name: 'image',
+        cssExpression: '.recipe_image_main img',
+        defaultValue: ''
+    }, {
+        type: 'text',
+        cssExpression: 'header h1.fn',
+        name: 'title',
+        defaultValue: ''
+    }, {
+        type: 'text',
+        name: 'description',
+        cssExpression: 'article.recipe_description',
+        defaultValue: ''
+    }, {
+        type: 'text',
+        name: 'method',
+        cssExpression: 'article.method',
+        defaultValue: ''
+    }, {
+        type: 'text',
+        name: 'ingredients',
+        cssExpression: 'p.ingredient'
+    }],
+    extractionPath: '/recipes/:category/:recipe'
+}
 
-bot.setExtractionPath('/recipes/:category/:recipe');
+bot = new Bot(options);
+bot.persistence = persistence;
+
 bot.start();
