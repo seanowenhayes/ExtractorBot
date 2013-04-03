@@ -23,6 +23,7 @@ var options = {
         type: 'text',
         cssExpression: 'header h1.fn',
         name: 'title',
+
         defaultValue: ''
     }, {
         type: 'text',
