@@ -11,6 +11,6 @@ module.exports = function(app){
     app.get('/api/v1/:crawlId', crawlCtrl.read);
     app.post('/api/v1', crawlCtrl.create);
     app.put('/api/v1/:crawlId', crawlCtrl.update);
-    app.delete('/api/v1/:crawlId', cralwCtrl.destroy);
+    app.delete('/api/v1/:crawlId', crawlCtrl.destroy);
 
 };
