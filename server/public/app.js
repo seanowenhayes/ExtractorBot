@@ -17,6 +17,10 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
+    controllers: [
+        'crawlCtrl'
+    ],
+
     views: [
         'Main'
     ],
