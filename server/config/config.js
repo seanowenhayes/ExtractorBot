@@ -9,7 +9,7 @@ var config = {
       name: 'server'
     },
     port: 3000,
-    db: 'mongodb://localhost/server-development'
+    db: 'mongodb://localhost/extractor-development'
   },
 
   test: {
@@ -18,7 +18,7 @@ var config = {
       name: 'server'
     },
     port: 3000,
-    db: 'mongodb://localhost/server-test'
+    db: 'mongodb://localhost/extractor-test'
   },
 
   production: {
@@ -27,7 +27,7 @@ var config = {
       name: 'server'
     },
     port: 3000,
-    db: 'mongodb://localhost/server-production'
+    db: 'mongodb://localhost/extractor-production'
   }
 };
 
