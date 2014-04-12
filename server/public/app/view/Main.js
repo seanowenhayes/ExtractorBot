@@ -3,8 +3,7 @@ Ext.define('Scrape.view.Main', {
     xtype: 'main',
     requires: [
         'Scrape.view.crawl.Create',
-        'Scrape.view.crawl.List',
-        'Ext.Video'
+        'Scrape.view.crawl.List'
     ],
     config: {
         tabBarPosition: 'bottom',
@@ -14,7 +13,8 @@ Ext.define('Scrape.view.Main', {
                 
                 iconCls: 'home',
                 xtype: 'crawllist'
-            },
+            }
+            ,
             {
                 
                 iconCls: 'action',
